@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main
 
 jobs:
   deploy:
@@ -13,8 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.8.3
+      - name: Setup SSH
+        uses: actions/setup-ssh@v0.4.0
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
