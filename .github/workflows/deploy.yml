@@ -7,20 +7,21 @@ on:
 
 jobs:
   deploy:
+    name: Deploy 3-tier app to EC2
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup SSH
+      - name: 🔐 Set up SSH
         uses: actions/setup-ssh@v0.4.0
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Deploy to EC2
+      - name: 🚀 Deploy on EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             cd ${{ secrets.PROJECT_DIR }}
             git pull origin main
             docker-compose down
